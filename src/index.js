@@ -10,13 +10,14 @@ import {
   createHttpLink
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import { BrowserRouter } from 'react-router-dom';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000'
 })
 
 const authLink = setContext((_, { headers }) => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzODM0OTg5Mn0.ttX5kTa0aqXuoc7MDYH5_J1LVK4ZfIWawMjSRo1ITqQ';
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzODM0OTg5Mn0.ttX5kTa0aqXuoc7MDYH5_J1LVK4ZfIWawMjSRo1ITqQ";
   return {
     headers: {
       ...headers,
@@ -31,9 +32,11 @@ const client = new ApolloClient({
 })
 
 ReactDOM.render(
+  <BrowserRouter>
     <ApolloProvider client={client}>
       <App />
-    </ApolloProvider>,
+    </ApolloProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
