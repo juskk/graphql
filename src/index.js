@@ -11,19 +11,20 @@ import {
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { BrowserRouter } from 'react-router-dom';
+import { AUTH_TOKEN } from './constants';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000'
 })
 
 const authLink = setContext((_, { headers }) => {
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTYzODM0OTg5Mn0.ttX5kTa0aqXuoc7MDYH5_J1LVK4ZfIWawMjSRo1ITqQ";
+  const token = localStorage.getItem(AUTH_TOKEN);
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : ''
     }
-  }
+  };
 });
 
 const client = new ApolloClient({
